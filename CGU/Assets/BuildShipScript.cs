@@ -6,18 +6,25 @@ public class BuildShipScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		     Vector3 pos_core = new Vector3(0, 0, 0);
-			GameObject core = (GameObject)Instantiate(Resources.Load("ShipParts/level1core2"), pos_core, Quaternion.identity);
+		Vector3 pos_core = new Vector3(0, 0, 0);
+	    GameObject core = (GameObject)Instantiate(Resources.Load("ShipParts/level1core2"), pos_core, Quaternion.identity);
 		float core_x_size = GetParentSizeX (core);
 		GameObject engine = (GameObject)Instantiate(Resources.Load("ShipParts/level1engine2"));
+		FixedJoint engine_joint = engine.AddComponent<FixedJoint>();
+		engine_joint.connectedBody = core.GetComponent<Rigidbody>();
 		float engine_x_size = GetParentSizeX (engine);
-	   Vector3 pos_engine = new Vector3(-1.5f, 0, 1.1f);
+	    Vector3 pos_engine = new Vector3(-1.5f, 0, 1.1f);
 		engine.transform.position = pos_engine;
 		GameObject shield1 = (GameObject)Instantiate(Resources.Load("ShipParts/level1shields2"));
+		FixedJoint shield1_joint = shield1.AddComponent<FixedJoint>();
+		shield1_joint.connectedBody = core.GetComponent<Rigidbody>();
+
 		float shield1_x_size = GetParentSizeX (shield1);
 		Vector3 pos_shield1 = new Vector3(0, 0, -1.2f);
 		shield1.transform.position = pos_shield1;
 		GameObject shield2 = (GameObject)Instantiate(Resources.Load("ShipParts/level1shields2"));
+		FixedJoint shield2_joint = shield2.AddComponent<FixedJoint>();
+		shield2_joint.connectedBody = core.GetComponent<Rigidbody>();
 		float shield2_x_size = GetParentSizeX (shield2);
 		Vector3 pos_shield2 = new Vector3(0, 0, 3.6f);
 		shield2.transform.position = pos_shield2;
